@@ -1,0 +1,2814 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="1/8/2022 3:50:56 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-HRVRA1S"
+  DTS:CreatorName="DESKTOP-HRVRA1S\Mark"
+  DTS:DTSID="{D82BEFD0-F18A-4B96-AFCB-53273478B644}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="6153"
+  DTS:ObjectName="cricsheet"
+  DTS:PackageType="5"
+  DTS:VersionBuild="85"
+  DTS:VersionGUID="{27276335-26DF-4C79-A1D8-DCC05D7AA700}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-HRVRA1S.Staging]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{47A1D837-E832-4397-B11E-1B5CBC0F72F4}"
+      DTS:ObjectName="DESKTOP-HRVRA1S.Staging">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-HRVRA1S;Initial Catalog=Staging;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Flat File Connection Manager]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{55C01A6F-CBA4-4F61-BDCE-EBA5109397B4}"
+      DTS:ObjectName="Flat File Connection Manager">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::FilePath]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="FixedWidth"
+          DTS:LocaleID="6153"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter="_x000A_"
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="H:\Data\cricsheet\524915.json">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnDelimiter=""
+              DTS:ColumnWidth="32000"
+              DTS:MaximumWidth="32000"
+              DTS:DataType="129"
+              DTS:ObjectName="Column 0"
+              DTS:DTSID="{C5FD9353-3FBF-4DBE-B60C-3BDF7DD9DF25}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[processed]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{66673631-A949-46F0-9981-03F0D3F63B74}"
+      DTS:ObjectName="processed">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:FileUsageType="2"
+          DTS:ConnectionString="H:\Data\cricsheet\processed" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{A872333E-E008-4AF5-99A3-191EAC20E7F1}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::FilePath]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FilePath">
+      <DTS:VariableValue
+        DTS:DataType="8">H:\Data\cricsheet\524915.json</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{576D35ED-6685-43EC-B728-051AAAFB10DE}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;SELECT * FROM OPENROWSET (BULK &quot;&#xA;+&quot;'&quot;+&#xA; @[User::FilePath]&#xA;+&quot;'&quot;+&#xA;&quot; , SINGLE_CLOB) AS xCol;&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="OpenRow">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT * FROM OPENROWSET (BULK 'H:\Data\cricsheet\524915.json' , SINGLE_CLOB) AS xCol;</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\cricsheet JSON"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{CF879E17-BE4F-4967-8701-B642922F07FC}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="cricsheet JSON">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachFileEnumerator"
+        DTS:DTSID="{CFAFE669-BCE0-4CAE-9A42-86E44AC35CBB}"
+        DTS:ObjectName="{CFAFE669-BCE0-4CAE-9A42-86E44AC35CBB}">
+        <DTS:ObjectData>
+          <ForEachFileEnumeratorProperties>
+            <FEFEProperty
+              Folder="H:\Data\cricsheet" />
+            <FEFEProperty
+              FileSpec="*.json" />
+            <FEFEProperty
+              FileNameRetrievalType="0" />
+            <FEFEProperty
+              Recurse="0" />
+          </ForEachFileEnumeratorProperties>
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\cricsheet JSON\Load JSON to Stage"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{C3EC1E4A-9E64-47CB-A63F-DCC41EA5AD8B}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load JSON to Stage"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:PropertyExpression
+            DTS:Name="SqlStatementSource">"INSERT INTO S_Raw_JSON SELECT *," +"'" + @[User::FilePath] + "'" + "  FROM OPENROWSET (BULK "
++"'" + @[User::FilePath] + "'" + ",SINGLE_CLOB) AS J"</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{47A1D837-E832-4397-B11E-1B5CBC0F72F4}"
+              SQLTask:SqlStatementSource="INSERT INTO S_Raw_JSON SELECT *,'H:\Data\cricsheet\524915.json'  FROM OPENROWSET (BULK 'H:\Data\cricsheet\524915.json',SINGLE_CLOB) AS J" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\cricsheet JSON\Log file Name"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{EA915124-5670-4F5E-BF45-EB4324F50E63}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Log file Name"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:PropertyExpression
+            DTS:Name="SqlStatementSource">"insert into s_file_info values ("+"'"+ @[User::FilePath] +"'"+" ,GETDATE())"</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{47A1D837-E832-4397-B11E-1B5CBC0F72F4}"
+              SQLTask:SqlStatementSource="insert into s_file_info values ('H:\Data\cricsheet\524915.json' ,GETDATE())" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\cricsheet JSON.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{B786E7C4-EC4C-4E3C-B8AD-EAC89671D5B9}"
+          DTS:From="Package\cricsheet JSON\Log file Name"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\cricsheet JSON\Load JSON to Stage" />
+      </DTS:PrecedenceConstraints>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{6DC569F0-BA45-45A1-BA85-144868688F6F}"
+          DTS:ObjectName="{6DC569F0-BA45-45A1-BA85-144868688F6F}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::FilePath" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Staging"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{D7D82185-D9F9-4991-9C69-CEB390C15B50}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Staging"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Staging\MatchInfo"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="MatchInfo"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[S_Raw_JSON]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
+REPLACE(REPLACE(RIGHT([filename],12),'.json',''),'\','') as filekey,
+BulkColumn, filename, match_type, event, winner, winning_margin, overs, player_of_match
+from S_Raw_JSON
+CROSS APPLY OPENJSON(BulkColumn)
+WITH (
+match_type varchar(200) '$.info.match_type',
+event varchar(200) '$.info.event.name',
+winner varchar(200) '$.info.outcome.winner',
+winning_margin varchar(200) '$.info.outcome.by.wickets',
+overs varchar(20) '$.info.overs',
+player_of_match varchar(200) '$.info.player_of_match[0]'
+)</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Staging\MatchInfo.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-HRVRA1S.Staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-HRVRA1S.Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[filename]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].ExternalColumns[filename]"
+                      length="100"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[filename]"
+                      name="filename"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[filekey]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].ExternalColumns[filekey]"
+                      length="8000"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[filekey]"
+                      name="filekey"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[BulkColumn]"
+                      codePage="1252"
+                      dataType="text"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].ExternalColumns[BulkColumn]"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[BulkColumn]"
+                      name="BulkColumn"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[match_type]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].ExternalColumns[match_type]"
+                      length="200"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[match_type]"
+                      name="match_type"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[event]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].ExternalColumns[event]"
+                      length="200"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[event]"
+                      name="event"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[winner]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].ExternalColumns[winner]"
+                      length="200"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[winner]"
+                      name="winner"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[winning_margin]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].ExternalColumns[winning_margin]"
+                      length="200"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[winning_margin]"
+                      name="winning_margin"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[overs]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].ExternalColumns[overs]"
+                      length="20"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[overs]"
+                      name="overs"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[player_of_match]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].ExternalColumns[player_of_match]"
+                      length="200"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[player_of_match]"
+                      name="player_of_match"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].ExternalColumns[BulkColumn]"
+                      codePage="1252"
+                      dataType="text"
+                      name="BulkColumn" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].ExternalColumns[filename]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="filename" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].ExternalColumns[filekey]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8000"
+                      name="filekey" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].ExternalColumns[match_type]"
+                      codePage="1252"
+                      dataType="str"
+                      length="200"
+                      name="match_type" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].ExternalColumns[event]"
+                      codePage="1252"
+                      dataType="str"
+                      length="200"
+                      name="event" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].ExternalColumns[winner]"
+                      codePage="1252"
+                      dataType="str"
+                      length="200"
+                      name="winner" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].ExternalColumns[winning_margin]"
+                      codePage="1252"
+                      dataType="str"
+                      length="200"
+                      name="winning_margin" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].ExternalColumns[overs]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="overs" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].ExternalColumns[player_of_match]"
+                      codePage="1252"
+                      dataType="str"
+                      length="200"
+                      name="player_of_match" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Error Output].Columns[filekey]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8000"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Error Output].Columns[filekey]"
+                      name="filekey" />
+                    <outputColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Error Output].Columns[filename]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Error Output].Columns[filename]"
+                      name="filename" />
+                    <outputColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Error Output].Columns[match_type]"
+                      codePage="1252"
+                      dataType="str"
+                      length="200"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Error Output].Columns[match_type]"
+                      name="match_type" />
+                    <outputColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Error Output].Columns[event]"
+                      codePage="1252"
+                      dataType="str"
+                      length="200"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Error Output].Columns[event]"
+                      name="event" />
+                    <outputColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Error Output].Columns[winner]"
+                      codePage="1252"
+                      dataType="str"
+                      length="200"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Error Output].Columns[winner]"
+                      name="winner" />
+                    <outputColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Error Output].Columns[winning_margin]"
+                      codePage="1252"
+                      dataType="str"
+                      length="200"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Error Output].Columns[winning_margin]"
+                      name="winning_margin" />
+                    <outputColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Error Output].Columns[overs]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Error Output].Columns[overs]"
+                      name="overs" />
+                    <outputColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Error Output].Columns[player_of_match]"
+                      codePage="1252"
+                      dataType="str"
+                      length="200"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Error Output].Columns[player_of_match]"
+                      name="player_of_match" />
+                    <outputColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Error Output].Columns[BulkColumn]"
+                      codePage="1252"
+                      dataType="text"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Error Output].Columns[BulkColumn]"
+                      name="BulkColumn" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Staging\Players"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Players"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[S_Raw_JSON]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select 
+REPLACE(REPLACE(RIGHT([filename],12),'.json',''),'\','') as filekey,
+BulkColumn, filename, t1.[key] as [TeamName], t2.[key] as PlayerNo, t2.[value] as Player
+from S_Raw_JSON
+CROSS APPLY OPENJSON(BulkColumn)
+WITH (
+teams NVARCHAR(MAX) '$.info.players' AS JSON) as A
+CROSS APPLY OPENJSON(A.teams) as t1
+CROSS APPLY OPENJSON ( t1.[value]) AS t2</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Staging\Players.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-HRVRA1S.Staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-HRVRA1S.Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Staging\Players.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging\Players.Outputs[OLE DB Source Output].Columns[TeamName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\Players.Outputs[OLE DB Source Output].ExternalColumns[TeamName]"
+                      length="4000"
+                      lineageId="Package\Load Staging\Players.Outputs[OLE DB Source Output].Columns[TeamName]"
+                      name="TeamName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\Players.Outputs[OLE DB Source Output].Columns[PlayerNo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\Players.Outputs[OLE DB Source Output].ExternalColumns[PlayerNo]"
+                      length="4000"
+                      lineageId="Package\Load Staging\Players.Outputs[OLE DB Source Output].Columns[PlayerNo]"
+                      name="PlayerNo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\Players.Outputs[OLE DB Source Output].Columns[Player]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\Players.Outputs[OLE DB Source Output].ExternalColumns[Player]"
+                      lineageId="Package\Load Staging\Players.Outputs[OLE DB Source Output].Columns[Player]"
+                      name="Player"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\Players.Outputs[OLE DB Source Output].Columns[filekey]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\Players.Outputs[OLE DB Source Output].ExternalColumns[filekey]"
+                      length="8000"
+                      lineageId="Package\Load Staging\Players.Outputs[OLE DB Source Output].Columns[filekey]"
+                      name="filekey"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\Players.Outputs[OLE DB Source Output].Columns[filename]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\Players.Outputs[OLE DB Source Output].ExternalColumns[filename]"
+                      length="100"
+                      lineageId="Package\Load Staging\Players.Outputs[OLE DB Source Output].Columns[filename]"
+                      name="filename"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\Players.Outputs[OLE DB Source Output].ExternalColumns[TeamName]"
+                      dataType="wstr"
+                      length="4000"
+                      name="TeamName" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\Players.Outputs[OLE DB Source Output].ExternalColumns[PlayerNo]"
+                      dataType="wstr"
+                      length="4000"
+                      name="PlayerNo" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\Players.Outputs[OLE DB Source Output].ExternalColumns[Player]"
+                      dataType="nText"
+                      name="Player" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\Players.Outputs[OLE DB Source Output].ExternalColumns[filekey]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8000"
+                      name="filekey" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\Players.Outputs[OLE DB Source Output].ExternalColumns[BulkColumn]"
+                      codePage="1252"
+                      dataType="text"
+                      name="BulkColumn" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\Players.Outputs[OLE DB Source Output].ExternalColumns[filename]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="filename" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Staging\Players.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging\Players.Outputs[OLE DB Source Error Output].Columns[filekey]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8000"
+                      lineageId="Package\Load Staging\Players.Outputs[OLE DB Source Error Output].Columns[filekey]"
+                      name="filekey" />
+                    <outputColumn
+                      refId="Package\Load Staging\Players.Outputs[OLE DB Source Error Output].Columns[filename]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\Load Staging\Players.Outputs[OLE DB Source Error Output].Columns[filename]"
+                      name="filename" />
+                    <outputColumn
+                      refId="Package\Load Staging\Players.Outputs[OLE DB Source Error Output].Columns[TeamName]"
+                      dataType="wstr"
+                      length="4000"
+                      lineageId="Package\Load Staging\Players.Outputs[OLE DB Source Error Output].Columns[TeamName]"
+                      name="TeamName" />
+                    <outputColumn
+                      refId="Package\Load Staging\Players.Outputs[OLE DB Source Error Output].Columns[PlayerNo]"
+                      dataType="wstr"
+                      length="4000"
+                      lineageId="Package\Load Staging\Players.Outputs[OLE DB Source Error Output].Columns[PlayerNo]"
+                      name="PlayerNo" />
+                    <outputColumn
+                      refId="Package\Load Staging\Players.Outputs[OLE DB Source Error Output].Columns[Player]"
+                      dataType="nText"
+                      lineageId="Package\Load Staging\Players.Outputs[OLE DB Source Error Output].Columns[Player]"
+                      name="Player" />
+                    <outputColumn
+                      refId="Package\Load Staging\Players.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging\Players.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Staging\Players.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging\Players.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Staging\PowerPlays"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="PowerPlays"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT i2.[key] as inningsNo,
+REPLACE(REPLACE(RIGHT([filename],12),'.json',''),'\','') as filekey,
+BulkColumn, filename, 
+i4.*
+FROM S_Raw_JSON
+CROSS APPLY OPENJSON(BulkColumn) as i1
+CROSS APPLY OPENJSON(i1.[value]) as i2
+CROSS APPLY OPENJSON(i2.[value]) as i3
+CROSS APPLY OPENJSON(i3.[value]) 
+WITH (from_value varchar(20) '$.from',
+      to_value varchar(20) '$.to',
+      type varchar(20) '$.type' ) as i4
+WHERE i1.[key]='innings'
+AND i3.[key]='powerplays'</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Staging\PowerPlays.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-HRVRA1S.Staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-HRVRA1S.Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].Columns[inningsNo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].ExternalColumns[inningsNo]"
+                      length="4000"
+                      lineageId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].Columns[inningsNo]"
+                      name="inningsNo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].Columns[filekey]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].ExternalColumns[filekey]"
+                      length="8000"
+                      lineageId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].Columns[filekey]"
+                      name="filekey"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].Columns[from_value]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].ExternalColumns[from_value]"
+                      length="20"
+                      lineageId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].Columns[from_value]"
+                      name="from_value"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].Columns[to_value]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].ExternalColumns[to_value]"
+                      length="20"
+                      lineageId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].Columns[to_value]"
+                      name="to_value"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].Columns[type]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].ExternalColumns[type]"
+                      length="20"
+                      lineageId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].Columns[type]"
+                      name="type"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].ExternalColumns[inningsNo]"
+                      dataType="wstr"
+                      length="4000"
+                      name="inningsNo" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].ExternalColumns[filekey]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8000"
+                      name="filekey" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].ExternalColumns[BulkColumn]"
+                      codePage="1252"
+                      dataType="text"
+                      name="BulkColumn" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].ExternalColumns[filename]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="filename" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].ExternalColumns[from_value]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="from_value" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].ExternalColumns[to_value]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="to_value" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].ExternalColumns[type]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="type" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Error Output].Columns[inningsNo]"
+                      dataType="wstr"
+                      length="4000"
+                      lineageId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Error Output].Columns[inningsNo]"
+                      name="inningsNo" />
+                    <outputColumn
+                      refId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Error Output].Columns[filekey]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8000"
+                      lineageId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Error Output].Columns[filekey]"
+                      name="filekey" />
+                    <outputColumn
+                      refId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Error Output].Columns[from_value]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Error Output].Columns[from_value]"
+                      name="from_value" />
+                    <outputColumn
+                      refId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Error Output].Columns[to_value]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Error Output].Columns[to_value]"
+                      name="to_value" />
+                    <outputColumn
+                      refId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Error Output].Columns[type]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Error Output].Columns[type]"
+                      name="type" />
+                    <outputColumn
+                      refId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Staging\S_MatchInfo"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="S_MatchInfo"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[S_MatchInfo]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Staging\S_MatchInfo.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-HRVRA1S.Staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-HRVRA1S.Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].Columns[match_type]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="200"
+                      cachedName="match_type"
+                      externalMetadataColumnId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].ExternalColumns[match_type]"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[match_type]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].Columns[event]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="200"
+                      cachedName="event"
+                      externalMetadataColumnId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].ExternalColumns[event]"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[event]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].Columns[winner]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="200"
+                      cachedName="winner"
+                      externalMetadataColumnId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].ExternalColumns[winner]"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[winner]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].Columns[winning_margin]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="200"
+                      cachedName="winning_margin"
+                      externalMetadataColumnId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].ExternalColumns[winning_margin]"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[winning_margin]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].Columns[overs]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="overs"
+                      externalMetadataColumnId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].ExternalColumns[overs]"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[overs]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].Columns[player_of_match]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="200"
+                      cachedName="player_of_match"
+                      externalMetadataColumnId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].ExternalColumns[player_of_match]"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[player_of_match]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].Columns[filekey]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="8000"
+                      cachedName="filekey"
+                      externalMetadataColumnId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].ExternalColumns[filekey]"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[filekey]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].Columns[filename]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="filename"
+                      externalMetadataColumnId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].ExternalColumns[filename]"
+                      lineageId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output].Columns[filename]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].ExternalColumns[match_type]"
+                      codePage="1252"
+                      dataType="str"
+                      length="200"
+                      name="match_type" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].ExternalColumns[event]"
+                      codePage="1252"
+                      dataType="str"
+                      length="200"
+                      name="event" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].ExternalColumns[winner]"
+                      codePage="1252"
+                      dataType="str"
+                      length="200"
+                      name="winner" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].ExternalColumns[winning_margin]"
+                      codePage="1252"
+                      dataType="str"
+                      length="200"
+                      name="winning_margin" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].ExternalColumns[overs]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="overs" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].ExternalColumns[player_of_match]"
+                      codePage="1252"
+                      dataType="str"
+                      length="200"
+                      name="player_of_match" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].ExternalColumns[filekey]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="filekey" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input].ExternalColumns[filename]"
+                      codePage="1252"
+                      dataType="str"
+                      length="200"
+                      name="filename" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Staging\S_MatchInfo.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging\S_MatchInfo.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging\S_MatchInfo.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Staging\S_MatchInfo.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging\S_MatchInfo.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Staging\S_Players"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="S_Players"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[S_Players]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Staging\S_Players.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-HRVRA1S.Staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-HRVRA1S.Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Staging\S_Players.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Staging\S_Players.Inputs[OLE DB Destination Input].Columns[filekey]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="8000"
+                      cachedName="filekey"
+                      externalMetadataColumnId="Package\Load Staging\S_Players.Inputs[OLE DB Destination Input].ExternalColumns[filekey]"
+                      lineageId="Package\Load Staging\Players.Outputs[OLE DB Source Output].Columns[filekey]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_Players.Inputs[OLE DB Destination Input].Columns[filename]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="filename"
+                      externalMetadataColumnId="Package\Load Staging\S_Players.Inputs[OLE DB Destination Input].ExternalColumns[filename]"
+                      lineageId="Package\Load Staging\Players.Outputs[OLE DB Source Output].Columns[filename]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_Players.Inputs[OLE DB Destination Input].Columns[TeamName]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="TeamName"
+                      externalMetadataColumnId="Package\Load Staging\S_Players.Inputs[OLE DB Destination Input].ExternalColumns[TeamName]"
+                      lineageId="Package\Load Staging\Players.Outputs[OLE DB Source Output].Columns[TeamName]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_Players.Inputs[OLE DB Destination Input].Columns[PlayerNo]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="PlayerNo"
+                      externalMetadataColumnId="Package\Load Staging\S_Players.Inputs[OLE DB Destination Input].ExternalColumns[PlayerNo]"
+                      lineageId="Package\Load Staging\Players.Outputs[OLE DB Source Output].Columns[PlayerNo]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_Players.Inputs[OLE DB Destination Input].Columns[Player]"
+                      cachedDataType="nText"
+                      cachedName="Player"
+                      externalMetadataColumnId="Package\Load Staging\S_Players.Inputs[OLE DB Destination Input].ExternalColumns[Player]"
+                      lineageId="Package\Load Staging\Players.Outputs[OLE DB Source Output].Columns[Player]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_Players.Inputs[OLE DB Destination Input].ExternalColumns[filekey]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="filekey" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_Players.Inputs[OLE DB Destination Input].ExternalColumns[filename]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="filename" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_Players.Inputs[OLE DB Destination Input].ExternalColumns[TeamName]"
+                      dataType="wstr"
+                      length="100"
+                      name="TeamName" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_Players.Inputs[OLE DB Destination Input].ExternalColumns[PlayerNo]"
+                      dataType="wstr"
+                      length="10"
+                      name="PlayerNo" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_Players.Inputs[OLE DB Destination Input].ExternalColumns[Player]"
+                      dataType="nText"
+                      name="Player" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Staging\S_Players.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Staging\S_Players.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging\S_Players.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging\S_Players.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Staging\S_Players.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging\S_Players.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Staging\S_Powerplays"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="S_Powerplays"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[S_Powerplays]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Staging\S_Powerplays.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-HRVRA1S.Staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-HRVRA1S.Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Staging\S_Powerplays.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Staging\S_Powerplays.Inputs[OLE DB Destination Input].Columns[inningsNo]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="inningsNo"
+                      externalMetadataColumnId="Package\Load Staging\S_Powerplays.Inputs[OLE DB Destination Input].ExternalColumns[inningsNo]"
+                      lineageId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].Columns[inningsNo]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_Powerplays.Inputs[OLE DB Destination Input].Columns[filekey]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="8000"
+                      cachedName="filekey"
+                      externalMetadataColumnId="Package\Load Staging\S_Powerplays.Inputs[OLE DB Destination Input].ExternalColumns[filekey]"
+                      lineageId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].Columns[filekey]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_Powerplays.Inputs[OLE DB Destination Input].Columns[from_value]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="from_value"
+                      externalMetadataColumnId="Package\Load Staging\S_Powerplays.Inputs[OLE DB Destination Input].ExternalColumns[from_value]"
+                      lineageId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].Columns[from_value]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_Powerplays.Inputs[OLE DB Destination Input].Columns[to_value]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="to_value"
+                      externalMetadataColumnId="Package\Load Staging\S_Powerplays.Inputs[OLE DB Destination Input].ExternalColumns[to_value]"
+                      lineageId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].Columns[to_value]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_Powerplays.Inputs[OLE DB Destination Input].Columns[type]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="type"
+                      externalMetadataColumnId="Package\Load Staging\S_Powerplays.Inputs[OLE DB Destination Input].ExternalColumns[type]"
+                      lineageId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output].Columns[type]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_Powerplays.Inputs[OLE DB Destination Input].ExternalColumns[inningsNo]"
+                      dataType="wstr"
+                      length="20"
+                      name="inningsNo" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_Powerplays.Inputs[OLE DB Destination Input].ExternalColumns[filekey]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="filekey" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_Powerplays.Inputs[OLE DB Destination Input].ExternalColumns[from_value]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="from_value" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_Powerplays.Inputs[OLE DB Destination Input].ExternalColumns[to_value]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="to_value" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_Powerplays.Inputs[OLE DB Destination Input].ExternalColumns[type]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="type" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Staging\S_Powerplays.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Staging\S_Powerplays.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging\S_Powerplays.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging\S_Powerplays.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Staging\S_Powerplays.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging\S_Powerplays.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Staging\S_Teams"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="S_Teams"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[S_Teams]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Staging\S_Teams.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-HRVRA1S.Staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-HRVRA1S.Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Staging\S_Teams.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Staging\S_Teams.Inputs[OLE DB Destination Input].Columns[filekey]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="8000"
+                      cachedName="filekey"
+                      externalMetadataColumnId="Package\Load Staging\S_Teams.Inputs[OLE DB Destination Input].ExternalColumns[filekey]"
+                      lineageId="Package\Load Staging\Teams.Outputs[OLE DB Source Output].Columns[filekey]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_Teams.Inputs[OLE DB Destination Input].Columns[filename]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="filename"
+                      externalMetadataColumnId="Package\Load Staging\S_Teams.Inputs[OLE DB Destination Input].ExternalColumns[filename]"
+                      lineageId="Package\Load Staging\Teams.Outputs[OLE DB Source Output].Columns[filename]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_Teams.Inputs[OLE DB Destination Input].Columns[TeamNo]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="TeamNo"
+                      externalMetadataColumnId="Package\Load Staging\S_Teams.Inputs[OLE DB Destination Input].ExternalColumns[TeamNo]"
+                      lineageId="Package\Load Staging\Teams.Outputs[OLE DB Source Output].Columns[TeamNo]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_Teams.Inputs[OLE DB Destination Input].Columns[TeamName]"
+                      cachedDataType="nText"
+                      cachedName="TeamName"
+                      externalMetadataColumnId="Package\Load Staging\S_Teams.Inputs[OLE DB Destination Input].ExternalColumns[TeamName]"
+                      lineageId="Package\Load Staging\Teams.Outputs[OLE DB Source Output].Columns[TeamName]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_Teams.Inputs[OLE DB Destination Input].ExternalColumns[filekey]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8000"
+                      name="filekey" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_Teams.Inputs[OLE DB Destination Input].ExternalColumns[filename]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="filename" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_Teams.Inputs[OLE DB Destination Input].ExternalColumns[TeamNo]"
+                      dataType="wstr"
+                      length="4000"
+                      name="TeamNo" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_Teams.Inputs[OLE DB Destination Input].ExternalColumns[TeamName]"
+                      dataType="nText"
+                      name="TeamName" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Staging\S_Teams.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Staging\S_Teams.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging\S_Teams.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging\S_Teams.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Staging\S_Teams.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging\S_Teams.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Staging\S_Wickets"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="S_Wickets"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[S_Wickets]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Staging\S_Wickets.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-HRVRA1S.Staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-HRVRA1S.Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input].Columns[inningsNo]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="inningsNo"
+                      externalMetadataColumnId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input].ExternalColumns[inningsNo]"
+                      lineageId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].Columns[inningsNo]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input].Columns[overNo]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="overNo"
+                      externalMetadataColumnId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input].ExternalColumns[overNo]"
+                      lineageId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].Columns[overNo]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input].Columns[ballNo]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="ballNo"
+                      externalMetadataColumnId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input].ExternalColumns[ballNo]"
+                      lineageId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].Columns[ballNo]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input].Columns[kind]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="kind"
+                      externalMetadataColumnId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input].ExternalColumns[kind]"
+                      lineageId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].Columns[kind]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input].Columns[player_out]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="player_out"
+                      externalMetadataColumnId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input].ExternalColumns[player_out]"
+                      lineageId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].Columns[player_out]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input].Columns[fielder]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="fielder"
+                      externalMetadataColumnId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input].ExternalColumns[fielder]"
+                      lineageId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].Columns[fielder]" />
+                    <inputColumn
+                      refId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input].Columns[filekey]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="8000"
+                      cachedName="filekey"
+                      externalMetadataColumnId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input].ExternalColumns[filekey]"
+                      lineageId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].Columns[filekey]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input].ExternalColumns[inningsNo]"
+                      dataType="wstr"
+                      length="20"
+                      name="inningsNo" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input].ExternalColumns[overNo]"
+                      dataType="wstr"
+                      length="20"
+                      name="overNo" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input].ExternalColumns[ballNo]"
+                      dataType="wstr"
+                      length="20"
+                      name="ballNo" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input].ExternalColumns[kind]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="kind" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input].ExternalColumns[player_out]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="player_out" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input].ExternalColumns[fielder]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="fielder" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input].ExternalColumns[filekey]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="filekey" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Staging\S_Wickets.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging\S_Wickets.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging\S_Wickets.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Staging\S_Wickets.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging\S_Wickets.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Staging\Teams"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Teams"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select 
+REPLACE(REPLACE(RIGHT([filename],12),'.json',''),'\','') as filekey,
+BulkColumn, filename, 
+i2.[key] as TeamNo, i3.[value] as TeamName
+FROM S_Raw_JSON
+CROSS APPLY OPENJSON(BulkColumn) as i1
+CROSS APPLY OPENJSON(i1.[value]) as i2
+CROSS APPLY OPENJSON(i2.[value]) as i3
+WHERE i1.[key]='innings'
+and i3.[key]='team'</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Staging\Teams.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-HRVRA1S.Staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-HRVRA1S.Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Staging\Teams.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging\Teams.Outputs[OLE DB Source Output].Columns[filekey]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\Teams.Outputs[OLE DB Source Output].ExternalColumns[filekey]"
+                      length="8000"
+                      lineageId="Package\Load Staging\Teams.Outputs[OLE DB Source Output].Columns[filekey]"
+                      name="filekey"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\Teams.Outputs[OLE DB Source Output].Columns[filename]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\Teams.Outputs[OLE DB Source Output].ExternalColumns[filename]"
+                      length="100"
+                      lineageId="Package\Load Staging\Teams.Outputs[OLE DB Source Output].Columns[filename]"
+                      name="filename"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\Teams.Outputs[OLE DB Source Output].Columns[TeamNo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\Teams.Outputs[OLE DB Source Output].ExternalColumns[TeamNo]"
+                      length="4000"
+                      lineageId="Package\Load Staging\Teams.Outputs[OLE DB Source Output].Columns[TeamNo]"
+                      name="TeamNo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\Teams.Outputs[OLE DB Source Output].Columns[TeamName]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\Teams.Outputs[OLE DB Source Output].ExternalColumns[TeamName]"
+                      lineageId="Package\Load Staging\Teams.Outputs[OLE DB Source Output].Columns[TeamName]"
+                      name="TeamName"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\Teams.Outputs[OLE DB Source Output].ExternalColumns[filekey]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8000"
+                      name="filekey" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\Teams.Outputs[OLE DB Source Output].ExternalColumns[BulkColumn]"
+                      codePage="1252"
+                      dataType="text"
+                      name="BulkColumn" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\Teams.Outputs[OLE DB Source Output].ExternalColumns[filename]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="filename" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\Teams.Outputs[OLE DB Source Output].ExternalColumns[TeamNo]"
+                      dataType="wstr"
+                      length="4000"
+                      name="TeamNo" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\Teams.Outputs[OLE DB Source Output].ExternalColumns[TeamName]"
+                      dataType="nText"
+                      name="TeamName" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Staging\Teams.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging\Teams.Outputs[OLE DB Source Error Output].Columns[filekey]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8000"
+                      lineageId="Package\Load Staging\Teams.Outputs[OLE DB Source Error Output].Columns[filekey]"
+                      name="filekey" />
+                    <outputColumn
+                      refId="Package\Load Staging\Teams.Outputs[OLE DB Source Error Output].Columns[filename]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\Load Staging\Teams.Outputs[OLE DB Source Error Output].Columns[filename]"
+                      name="filename" />
+                    <outputColumn
+                      refId="Package\Load Staging\Teams.Outputs[OLE DB Source Error Output].Columns[TeamNo]"
+                      dataType="wstr"
+                      length="4000"
+                      lineageId="Package\Load Staging\Teams.Outputs[OLE DB Source Error Output].Columns[TeamNo]"
+                      name="TeamNo" />
+                    <outputColumn
+                      refId="Package\Load Staging\Teams.Outputs[OLE DB Source Error Output].Columns[TeamName]"
+                      dataType="nText"
+                      lineageId="Package\Load Staging\Teams.Outputs[OLE DB Source Error Output].Columns[TeamName]"
+                      name="TeamName" />
+                    <outputColumn
+                      refId="Package\Load Staging\Teams.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging\Teams.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Staging\Teams.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging\Teams.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Staging\Wickets"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Wickets"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select i2.[key] as inningsNo, 
+i4.[key] as [overNo], 
+i6.[key] as ballNo, 
+i8.[kind], 
+i8.[player_out], i8.[fielder],
+REPLACE(REPLACE(RIGHT([filename],12),'.json',''),'\','') as filekey,
+BulkColumn, filename
+FROM S_Raw_JSON
+CROSS APPLY OPENJSON(BulkColumn) as i1
+CROSS APPLY OPENJSON(i1.[value]) as i2
+CROSS APPLY OPENJSON(i2.[value]) as i3
+CROSS APPLY OPENJSON(i3.[value]) as i4
+CROSS APPLY OPENJSON(i4.[value]) as i5
+CROSS APPLY OPENJSON(i5.[value]) as i6
+CROSS APPLY OPENJSON(i6.[value]) as i7
+CROSS APPLY OPENJSON(i7.[value]) 
+with (
+    kind varchar(20) '$.kind', 
+    player_out varchar(100) '$.player_out', 
+    fielder varchar(100) '$.fielders.name[0]'
+) as i8
+WHERE i1.[key]='innings'
+AND i3.[key]='overs'
+and i5.[key]='deliveries'
+and i7.[key]='wickets'</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Staging\Wickets.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-HRVRA1S.Staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-HRVRA1S.Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].Columns[inningsNo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].ExternalColumns[inningsNo]"
+                      length="4000"
+                      lineageId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].Columns[inningsNo]"
+                      name="inningsNo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].Columns[overNo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].ExternalColumns[overNo]"
+                      length="4000"
+                      lineageId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].Columns[overNo]"
+                      name="overNo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].Columns[ballNo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].ExternalColumns[ballNo]"
+                      length="4000"
+                      lineageId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].Columns[ballNo]"
+                      name="ballNo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].Columns[kind]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].ExternalColumns[kind]"
+                      length="20"
+                      lineageId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].Columns[kind]"
+                      name="kind"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].Columns[player_out]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].ExternalColumns[player_out]"
+                      length="100"
+                      lineageId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].Columns[player_out]"
+                      name="player_out"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].Columns[fielder]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].ExternalColumns[fielder]"
+                      length="100"
+                      lineageId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].Columns[fielder]"
+                      name="fielder"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].Columns[filekey]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].ExternalColumns[filekey]"
+                      length="8000"
+                      lineageId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].Columns[filekey]"
+                      name="filekey"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].ExternalColumns[inningsNo]"
+                      dataType="wstr"
+                      length="4000"
+                      name="inningsNo" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].ExternalColumns[overNo]"
+                      dataType="wstr"
+                      length="4000"
+                      name="overNo" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].ExternalColumns[ballNo]"
+                      dataType="wstr"
+                      length="4000"
+                      name="ballNo" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].ExternalColumns[kind]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="kind" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].ExternalColumns[player_out]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="player_out" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].ExternalColumns[fielder]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="fielder" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].ExternalColumns[filekey]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8000"
+                      name="filekey" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].ExternalColumns[BulkColumn]"
+                      codePage="1252"
+                      dataType="text"
+                      name="BulkColumn" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output].ExternalColumns[filename]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="filename" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Error Output].Columns[inningsNo]"
+                      dataType="wstr"
+                      length="4000"
+                      lineageId="Package\Load Staging\Wickets.Outputs[OLE DB Source Error Output].Columns[inningsNo]"
+                      name="inningsNo" />
+                    <outputColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Error Output].Columns[overNo]"
+                      dataType="wstr"
+                      length="4000"
+                      lineageId="Package\Load Staging\Wickets.Outputs[OLE DB Source Error Output].Columns[overNo]"
+                      name="overNo" />
+                    <outputColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Error Output].Columns[ballNo]"
+                      dataType="wstr"
+                      length="4000"
+                      lineageId="Package\Load Staging\Wickets.Outputs[OLE DB Source Error Output].Columns[ballNo]"
+                      name="ballNo" />
+                    <outputColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Error Output].Columns[kind]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\Load Staging\Wickets.Outputs[OLE DB Source Error Output].Columns[kind]"
+                      name="kind" />
+                    <outputColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Error Output].Columns[player_out]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\Load Staging\Wickets.Outputs[OLE DB Source Error Output].Columns[player_out]"
+                      name="player_out" />
+                    <outputColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Error Output].Columns[fielder]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\Load Staging\Wickets.Outputs[OLE DB Source Error Output].Columns[fielder]"
+                      name="fielder" />
+                    <outputColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Error Output].Columns[filekey]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8000"
+                      lineageId="Package\Load Staging\Wickets.Outputs[OLE DB Source Error Output].Columns[filekey]"
+                      name="filekey" />
+                    <outputColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging\Wickets.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Staging\Wickets.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging\Wickets.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Staging.Paths[OLE DB Source Output]"
+              endId="Package\Load Staging\S_Players.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Staging\Players.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Load Staging.Paths[OLE DB Source Output1]"
+              endId="Package\Load Staging\S_MatchInfo.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Staging\MatchInfo.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Load Staging.Paths[OLE DB Source Output2]"
+              endId="Package\Load Staging\S_Teams.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Staging\Teams.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Load Staging.Paths[OLE DB Source Output3]"
+              endId="Package\Load Staging\S_Powerplays.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Staging\PowerPlays.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Load Staging.Paths[OLE DB Source Output4]"
+              endId="Package\Load Staging\S_Wickets.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Staging\Wickets.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{C3524CB1-35B2-496E-A93A-ABFF87E0B5E2}"
+      DTS:From="Package\cricsheet JSON"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Load Staging" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{3F13D09D-AA8B-45E2-8AC2-3E8FFC966611}"
+      DTS:EventID="0"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{5E6D642F-AEAA-42F0-9642-74D396216B34}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables />
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="147,42"
+          Id="Package\cricsheet JSON\Log file Name"
+          TopLeft="30,105" />
+        <NodeLayout
+          Size="179,42"
+          Id="Package\cricsheet JSON\Load JSON to Stage"
+          TopLeft="35,200" />
+        <EdgeLayout
+          Id="Package\cricsheet JSON.PrecedenceConstraints[Constraint 1]"
+          TopLeft="103.5,147">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="21,53"
+              Start="0,0"
+              End="21,45.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.5"
+                    Point2="0,26.5"
+                    Point3="4,26.5" />
+                  <mssgle:LineSegment
+                    End="17,26.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="17,26.5"
+                    Point2="21,26.5"
+                    Point3="21,30.5" />
+                  <mssgle:LineSegment
+                    End="21,45.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="268,431"
+          Size="268,474"
+          Id="Package\cricsheet JSON"
+          TopLeft="13,15" />
+        <NodeLayout
+          Size="144,42"
+          Id="Package\Load Staging"
+          TopLeft="66,532" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="147,489">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-9,43"
+              Start="0,0"
+              End="-9,35.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.5"
+                    Point2="0,21.5"
+                    Point3="-4,21.5" />
+                  <mssgle:LineSegment
+                    End="-5,21.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-5,21.5"
+                    Point2="-9,21.5"
+                    Point3="-9,25.5" />
+                  <mssgle:LineSegment
+                    End="-9,35.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load Staging">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="127,42"
+          Id="Package\Load Staging\MatchInfo"
+          TopLeft="57,68" />
+        <NodeLayout
+          Size="141,42"
+          Id="Package\Load Staging\S_MatchInfo"
+          TopLeft="60,303" />
+        <NodeLayout
+          Size="116,42"
+          Id="Package\Load Staging\Players"
+          TopLeft="231,72" />
+        <NodeLayout
+          Size="129,42"
+          Id="Package\Load Staging\S_Players"
+          TopLeft="234,307" />
+        <EdgeLayout
+          Id="Package\Load Staging.Paths[OLE DB Source Output]"
+          TopLeft="289,114">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="9.5,193"
+              Start="0,0"
+              End="9.5,185.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,92.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,92.5"
+                    Point2="0,96.5"
+                    Point3="4,96.5" />
+                  <mssgle:LineSegment
+                    End="5.5,96.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="5.5,96.5"
+                    Point2="9.5,96.5"
+                    Point3="9.5,100.5" />
+                  <mssgle:LineSegment
+                    End="9.5,185.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Staging.Paths[OLE DB Source Output1]"
+          TopLeft="120.5,110">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="10,193"
+              Start="0,0"
+              End="10,185.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,92.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,92.5"
+                    Point2="0,96.5"
+                    Point3="4,96.5" />
+                  <mssgle:LineSegment
+                    End="6,96.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="6,96.5"
+                    Point2="10,96.5"
+                    Point3="10,100.5" />
+                  <mssgle:LineSegment
+                    End="10,185.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="113,42"
+          Id="Package\Load Staging\Teams"
+          TopLeft="375,72" />
+        <NodeLayout
+          Size="126,42"
+          Id="Package\Load Staging\S_Teams"
+          TopLeft="391,306" />
+        <EdgeLayout
+          Id="Package\Load Staging.Paths[OLE DB Source Output2]"
+          TopLeft="431.5,114">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="22.5,192"
+              Start="0,0"
+              End="22.5,184.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,92" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,92"
+                    Point2="0,96"
+                    Point3="4,96" />
+                  <mssgle:LineSegment
+                    End="18.5,96" />
+                  <mssgle:CubicBezierSegment
+                    Point1="18.5,96"
+                    Point2="22.5,96"
+                    Point3="22.5,100" />
+                  <mssgle:LineSegment
+                    End="22.5,184.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="137,42"
+          Id="Package\Load Staging\PowerPlays"
+          TopLeft="528,74" />
+        <NodeLayout
+          Size="149,42"
+          Id="Package\Load Staging\S_Powerplays"
+          TopLeft="546,305" />
+        <EdgeLayout
+          Id="Package\Load Staging.Paths[OLE DB Source Output3]"
+          TopLeft="596.5,116">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="24,189"
+              Start="0,0"
+              End="24,181.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,90.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,90.5"
+                    Point2="0,94.5"
+                    Point3="4,94.5" />
+                  <mssgle:LineSegment
+                    End="20,94.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="20,94.5"
+                    Point2="24,94.5"
+                    Point3="24,98.5" />
+                  <mssgle:LineSegment
+                    End="24,181.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="118,42"
+          Id="Package\Load Staging\Wickets"
+          TopLeft="709,74" />
+        <NodeLayout
+          Size="131,42"
+          Id="Package\Load Staging\S_Wickets"
+          TopLeft="714,304" />
+        <EdgeLayout
+          Id="Package\Load Staging.Paths[OLE DB Source Output4]"
+          TopLeft="768,116">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="11.5,188"
+              Start="0,0"
+              End="11.5,180.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,90" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,90"
+                    Point2="0,94"
+                    Point3="4,94" />
+                  <mssgle:LineSegment
+                    End="7.5,94" />
+                  <mssgle:CubicBezierSegment
+                    Point1="7.5,94"
+                    Point2="11.5,94"
+                    Point3="11.5,98" />
+                  <mssgle:LineSegment
+                    End="11.5,180.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Staging\MatchInfo">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Staging\S_MatchInfo">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Staging\Players">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Staging\S_Players">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Staging\Teams">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Staging\S_Teams">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Staging\PowerPlays">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Staging\S_Powerplays">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Staging\Wickets">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Staging\S_Wickets">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

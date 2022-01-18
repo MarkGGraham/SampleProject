@@ -1,0 +1,8 @@
+CREATE TABLE Excel_file(
+    Id int,
+    FirstName NVARCHAR(10),
+    LastName  NVARCHAR(10),
+    Gender  NVARCHAR(9),
+    Country   NVARCHAR(13),
+    Age  int
+)

@@ -1,0 +1,34 @@
+/****** Script for SelectTopNRows command from SSMS  ******/
+
+----[Count all] < (DT_UI8)2
+
+SELECT TOP (1000) [Task_id]
+      ,[Task_Name]
+      ,[Package_ID]
+      ,[Package_Name]
+      ,[Record_Count]
+      ,[Duplicate_Rows]
+      ,[Usr_Name]
+      ,[load_time]
+  FROM [dice].[dbo].[table_log]
+
+
+drop table [dice].[dbo].table_log 
+ truncate table [dice].[dbo].[Emp_log]
+
+  create table [dice].[dbo].table_log
+  (
+        Task_id varchar(50),
+	Task_Name varchar(50),
+	Package_ID varchar(50),
+	Package_Name varchar(50),
+	Record_Count int,
+	Duplicate_Row_Count int,
+	Usr_Name varchar(50),
+        load_time datetime default getdate()
+
+  )
+
+ insert into table_logging(Task_id,Task_Name,Package_ID,Package_Name,Record_Count,Duplicate_Record_Count,Usr_Name)values(?,?,?,?,?,?,?)
+
+

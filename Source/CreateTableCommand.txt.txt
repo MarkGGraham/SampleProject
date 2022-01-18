@@ -1,0 +1,16 @@
+create table SRC_STUDENT
+(
+student_id int,
+student_name varchar(20),
+Course varchar(20),
+Marks int
+)
+insert into SRC_STUDENT values(123,'Alex','Networking',200);
+insert into SRC_STUDENT values(123,'Alex','JAVA',230);
+insert into SRC_STUDENT values(123,'Alex','C++',180);
+insert into SRC_STUDENT values(124,'Bob','Networking',280);
+insert into SRC_STUDENT values(124,'Bob','JAVA',210);
+insert into SRC_STUDENT values(124,'Bob','C++',210);
+insert into SRC_STUDENT values(125,'George','Networking',230);
+insert into SRC_STUDENT values(125,'George','JAVA',280);
+insert into SRC_STUDENT values(125,'George','C++',210);

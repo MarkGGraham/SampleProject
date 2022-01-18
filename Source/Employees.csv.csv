@@ -1,0 +1,60 @@
+﻿Id,FirstName,LastName,Gender,Country,Age,Dept_Name,Salary
+20,Arcelia,Bouska,Female,Great Britain,39,HR,10000
+16,Etta,Hurn,Female,Great Britain,56,HR,11000
+17,Earlean,Melgar,Female,United States,27,HR,12000
+18,Vincenza,Weiland,Female,United States,40,HR,13000
+19,Fallon,Winward,Female,Great Britain,28,HR,14000
+15,Gaston,Brumm,Male,United States,24,HR,15000
+28,Loreta,Curren,Female,France,26,HR,16000
+22,Sherron,Ascencio,Female,Great Britain,32,HR,16050
+23,Marcel,Zabriskie,Male,Great Britain,26,HR,11000
+24,Kina,Hazelton,Female,Great Britain,31,HR,19000
+25,Shavonne,Pia,Female,France,24,HR,20000
+21,Franklyn,Unknow,Male,France,38,HR,21000
+26,Shavon,Benito,Female,France,39,HR,22000
+14,Nereida,Magwood,Female,United States,58,HR,24050
+12,Philip,Gent,Male,France,36,HR,24000
+13,Kathleen,Hanner,Female,United States,25,HR,25030
+29,Teresa,Strawn,Female,France,46,HR,26000
+27,Lauralee,Perrine,Female,Great Britain,28,HR,27000
+11,Mara,Hashimoto,Female,Great Britain,25,HR,28000
+10,Dulce,Abril,Female,United States,32,HR,29000
+31,Holly,Eudy,Female,United States,52,Tech,13000
+32,Many,Cuccia,Female,Great Britain,46,Tech,14050
+34,Lester,Prothro,Male,France,21,Tech,15050
+35,Marvel,Hail,Female,Great Britain,28,Tech,16000
+36,Angelyn,Vong,Female,United States,29,Tech,17080
+37,Francesca,Beaudreau,Female,France,23,Tech,18050
+33,Libbie,Dalby,Female,France,42,Tech,15000
+30,Belinda,Partain,Female,United States,37,Tech,16000
+38,Garth,Gangi,Male,United States,41,Tech,17000
+39,Carla,Trumbull,Female,Great Britain,28,Tech,18000
+41,Stasia,Becker,Female,Great Britain,34,Sales,9000
+40,Veta,Muntz,Female,Great Britain,37,Sales,10000
+42,Jona,Grindle,Female,Great Britain,26,Sales,11000
+43,Judie,Claywell,Female,France,35,Sales,12000
+44,Dewitt,Borger,Male,United States,36,Sales,13000
+45,Nena,Hacker,Female,United States,29,Sales,14000
+46,Kelsie,Wachtel,Female,France,27,Sales,15000
+47,Sau,Pfau,Female,United States,25,Sales,16000
+48,Shanice,Mccrystal,Female,United States,36,Sales,13000
+1,Dulce,Abril,Female,United States,32,Sales,14000
+4,Kathleen,Hanner,Female,United States,25,Sales,15000
+3,Philip,Gent,Male,France,36,Sales,16000
+2,Mara,Hashimoto,Female,Great Britain,25,Sales,17000
+9,Vincenza,Weiland,Female,United States,40,Marketing,11000
+53,Willodean,Harn,Female,United States,39,Marketing,12000
+52,Angel,Sanor,Male,France,24,Marketing,13000
+51,Dorcas,Darity,Female,United States,37,Marketing,14050
+49,Chase,Karner,Male,United States,37,Marketing,15000
+50,Tommie,Underdahl,Male,United States,26,Marketing,16000
+6,Gaston,Brumm,Male,United States,24,Marketing,17000
+7,Etta,Hurn,Female,Great Britain,56,Marketing,18000
+8,Earlean,Melgar,Female,United States,27,Marketing,19050
+5,Nereida,Magwood,Female,United States,58,Marketing,20000
+58,Jeromy,Danz,Male,United States,39,BI,16000
+54,Weston,Martina,Male,United States,26,BI,17000
+55,Roma,Lafollette,Female,United States,34,BI,18000
+56,Felisa,Cail,Female,United States,28,BI,19000
+57,Demetria,Abbey,Female,United States,32,BI,20000
+59,Rasheeda,Alkire,Female,United States,29,BI,21050

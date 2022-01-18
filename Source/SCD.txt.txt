@@ -1,0 +1,38 @@
+
+create table SRC_Employee
+(
+Emp_ID int,
+Emp_Name varchar(20),
+State_ varchar(30)
+)
+insert into SRC_Employee values(1001,'Alan','NY');
+insert into SRC_Employee values(1002,'Bob','Chicago');
+insert into SRC_Employee values(1003,'George','LA');
+
+update SRC_Employee
+set State_='LA'
+where Emp_ID=1003;
+
+create table Dim_Employee_SCD1
+(
+Emp_ID int,
+Emp_Name varchar(20),
+State_ varchar(30)
+)
+
+create table Dim_Employee_SCD2_date
+(
+Emp_ID int,
+Emp_Name varchar(20),
+State_ varchar(30),
+Start_Date_ datetime,
+End_Date_ datetime
+)
+
+create table Dim_Employee_SCD2_Status
+(
+Emp_ID int,
+Emp_Name varchar(20),
+State_ varchar(30),
+Current_Status varchar(20)
+)

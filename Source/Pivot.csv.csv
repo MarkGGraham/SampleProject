@@ -1,0 +1,16 @@
+student_id,student_name,Course,Marks,
+123,Alex,Networking,200,
+123,Alex,JAVA,230,
+123,Alex,C++,180,
+124,Bob,Networking,280,
+124,Bob,JAVA,210,
+124,Bob,C++,210,
+125,George,Networking,230,
+125,George,JAVA,280,
+125,George,C++,210,
+,,,,
+,,,,
+student_id,Student_Name,C++_Marks,JAVA_Marks,Networking_Marks
+123,Alex,180,230,200
+124,Bob,210,210,280
+125,George,210,280,230

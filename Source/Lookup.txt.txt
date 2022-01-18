@@ -1,0 +1,20 @@
+create table lookup_table
+(
+Country varchar(200),
+Country_Code int
+
+)
+insert into lookup_table values('Australia',61)
+insert into lookup_table values('Belgium',32);
+insert into lookup_table values('Bangladesh',880);
+insert into lookup_table values('Brazil',55);
+insert into lookup_table values('Chile',56);
+insert into lookup_table values('Pakistan',92);
+insert into lookup_table values('India',91);
+insert into lookup_table values('Germany',49);
+insert into lookup_table values('Iran',98);
+insert into lookup_table values('Japan',81);
+insert into lookup_table values('Malaysia',60);
+insert into lookup_table values('United States',1);
+insert into lookup_table values('Ukraine',380);
+insert into lookup_table values('United Kingdom',44);
